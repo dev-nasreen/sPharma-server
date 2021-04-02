@@ -63,8 +63,9 @@ client.connect(err => {
     const id =req.params.id;
     productsCollection.deleteOne({_id: ObjectId(id)})
     .then(result =>{
-      res.send(result.deletedCount > 0)
-      console.log(result.deletedCount)
+      if(result.deletedCount > 0){
+        res.send(!!result.deletedCount)
+      }
     })
 
   })
