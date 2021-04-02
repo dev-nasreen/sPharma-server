@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 require('dotenv').config()
-const port =process.env.PORT || 5000
+const port =process.env.PORT || 5500
 const MongoClient = require('mongodb').MongoClient;
 const  ObjectId  = require('mongodb').ObjectID;
 const { connect, ObjectID } = require('mongodb')
@@ -60,9 +60,8 @@ client.connect(err => {
     })
 
   app.delete('/delete/:id',(req, res)=>{
-    const id =ObjectId(req.params.id);
-    console.log('delete this', id);
-    productsCollection.deleteOne({_id: id})
+    const id =req.params.id;
+    productsCollection.deleteOne({_id: ObjectId(id)})
     .then(result =>{
       res.send(result.deletedCount > 0)
       console.log(result.deletedCount)
